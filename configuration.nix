@@ -19,7 +19,6 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
-    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
     grub.device = "nodev";
@@ -122,80 +121,18 @@
 
   services = {
 
-    xserver.enable = false;
+    xserver.enable = true;
     xserver.layout = "gb";
     #     xserver.xkbOptions = "eurosign:e";
 
     # Enable touchpad support.
-    # xserver.libinput.enable = true;
+    xserver.libinput.enable = true;
 
     # Enable the KDE Desktop Environment.
-    # xserver.displayManager.sddm.enable = true;
-    # xserver.desktopManager.plasma5.enable = true;
-
-    acpid = {
-      enable = true;
-      powerEventCommands = ''
-          systemctl suspend
-        '';
-      lidEventCommands = ''
-          systemctl hibernate
-        '';
-    };
-
-    # CUPS printing
-    printing = {
-      enable = true;
-      drivers = [ pkgs.hplipWithPlugin ];
-    };
-
-    redshift = {
-       enable = true;
-       latitude = "51.5072";
-       longitude = "0.1275";
-       temperature = {
-         night = 4000;
-       };
-     };
-    compton = {
-      enable = true;
-      fade = true;
-    };
-
-    locate.enable = true;
-    fprintd.enable = true; # finger-print daemon and PAM module
-
-    syncthing = {
-      enable = false;
-      user = "ben";
-      dataDir = "/home/ben/syncthing";
-    };
-
-    # apache-kafka = {
-    #   enable = false;
-    #   brokerId = 1;
-    # };
-
-    # zookeeper = {
-    #   enable = false;
-    # };
+    xserver.displayManager.sddm.enable = true;
+    xserver.desktopManager.plasma5.enable = true;
   };
-
-
-  fonts = {
-    enableFontDir = true;
-    enableGhostscriptFonts = true;
-    fonts = with pkgs; [
-      corefonts  # Micrsoft free fonts
-      inconsolata  # monospaced
-      ubuntu_font_family  # Ubuntu fonts
-      source-code-pro
-      font-awesome-ttf
-      siji
-    ];
-  };
-
-
+  
   users.extraUsers.ben = {
     name = "ben";
     group = "users";
